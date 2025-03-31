@@ -1,0 +1,182 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"scopeName": "source.mbach",
+	"patterns": [
+		{
+			"include": "#eqnSection"
+		},
+		{
+			"include": "#esetSection"
+		},
+		{
+			"include": "#procSection"
+		}
+	],
+	"repository": {
+		"token": {
+			"patterns": [
+				{
+					"name": "string.unquoted.mbach",
+					"match": "\\b([a-z_][a-zA-Z0-9_]*|[0-9]+)\\b"
+				}
+			]
+		},
+
+
+
+		"esetSection": {
+			"begin": "\\beset\\b",
+			"end": "(?=\\b(eqn|scene|proc|eset)\\b)",
+			"beginCaptures": {
+                "0": {
+                    "name": "keyword.control.mbach"
+                }
+            },
+			"patterns": [
+				{
+					"include": "#setAssign"
+				}
+			]
+		},
+		"setAssign": {
+			"patterns": [
+				{
+					"include": "#setName"
+				},
+				{
+					"match": "="
+				},
+				{
+					"include": "#setDef"
+				},
+				{
+					"match": "."
+				}
+			]
+		},
+		"setName": {
+			"patterns": [
+				{
+					"name": "variable.other.constant.mbach",
+					"match": "\\b[A-Z_][a-zA-Z0-9_]*\\b"
+				}
+			]
+		},
+		"setDef": {
+			"begin": "\\{",
+			"end": "\\}",
+			"patterns": [
+				{
+					"include": "#token"
+				}
+			]
+		},
+
+		"eqnSection": {
+			"begin": "\\beqn\\b",
+			"end": "(?=\\b(eqn|scene|proc|eset)\\b)",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.mbach"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#eqnAssign"
+				}
+			]
+		},
+		"eqnAssign": {
+			"begin": "\\b([a-z__][a-zA-Z0-9_]*)\\b",
+            "end": "(\\.)",
+            "beginCaptures": {
+                "1": {
+                    "name": "variable.other.mbach"
+                }
+            },
+            "patterns": [
+                {
+                    "match": "="
+                },
+                {
+                    "include": "#token"
+                }
+            ]
+		},
+		"procSection": {
+			"begin": "\\bproc\\b",
+			"end": "(?=\\b(eqn|scene|proc|eset)\\b)",
+			"beginCaptures": {
+                "0": {
+                    "name": "keyword.control.mbach"
+                }
+            },
+			"patterns": [
+				{
+					"include": "#procDef"
+				}
+			]
+		},
+		"procDef": {
+			"begin": "(\\b[A-Z_][a-zA-Z0-9_]*\\b)(\\(([a-z__][a-zA-Z0-9_]*)(\\s*\\:\\s*([A-Z_][a-zA-Z0-9_]*))?\\s*(\\,\\s*([a-z__][a-zA-Z0-9_]*)(\\s*\\:\\s*([A-Z_][a-zA-Z0-9_]*))?\\s*)*\\s*\\))?\\s*\\=",
+			"end": "\\.",
+			"beginCaptures": {
+				"1": {
+					"name": "entity.name.function.mbach"
+				},
+				"3": {
+					"name": "string.unquoted.mbach"
+				},
+				"5": {
+					"name": "variable.other.mbach"
+				},
+				"7": {
+					"name": "string.unquoted.mbach"
+				},
+				"9": {
+					"name": "variable.other.mbach"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#primitive"
+				},
+				{
+					"include": "#methCall"
+				},
+				{
+					"include": "#procCall"
+				},
+				{
+					"include": "#token"
+				}
+			]
+		},
+		"primitive": {
+			"patterns": [
+				{
+					"name": "variable.other.mbach",
+					"match": "(get|ask|att|nask|tell)(?=(\\(\\s*.*\\s*\\)))"
+				}
+			]
+		},
+		"methCall": {
+			"patterns": [
+				{
+					"name": "variable.other.mbach",
+					"match": "(\\b[a-z__][a-zA-Z0-9_]*\\b)(?=\\(.*\\))"
+				}
+			]
+		},
+		"procCall": {
+			"patterns": [
+				{
+					"name": "entity.name.function.mbach",
+					"match": "(\\b[A-Z_][a-zA-Z0-9_]*\\b)"
+				}
+			]
+		}
+	}
+}
+
+  

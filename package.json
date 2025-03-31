@@ -2,7 +2,7 @@
   "name": "bach-for-vscode",
   "displayName": "Bach for VSCode",
   "description": "Add Bach language support in VSCode.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -11,15 +11,15 @@
   ],
   "contributes": {
     "languages": [{
-      "id": "bach",
+      "id": "mbach",
       "aliases": ["Bach", "bach"],
       "extensions": [".mbach"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
-      "language": "bach",
-      "scopeName": "source.bach",
-      "path": "./syntaxes/bach.tmLanguage.json"
+      "language": "mbach",
+      "scopeName": "source.mbach",
+      "path": "./syntaxes/mbach.tmLanguage.json"
     }]
   }
 }
